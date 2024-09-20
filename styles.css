@@ -1,0 +1,266 @@
+/* styles.css */
+
+/* Root variables for easy theming */
+:root {
+    --primary-color: #4CAF50;
+    --secondary-color: #ffffff;
+    --accent-color: #ff9800;
+    --background-color: #f4f4f4;
+    --text-color: #333333;
+    --font-family: 'Poppins', sans-serif;
+}
+
+/* Reset some default styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Body styling */
+body {
+    font-family: var(--font-family);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* Container */
+.container {
+    width: 90%;
+    max-width: 1800px;
+    text-align: center;
+    max-height: 100vh;
+    overflow: auto;
+}
+
+/* Header */
+h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Input Section */
+.input-section {
+    background-color: var(--secondary-color);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#namesInput {
+    width: 100%; /* Sử dụng toàn bộ chiều rộng của container */
+    height: 150px; /* Tăng chiều cao, điều chỉnh theo nhu cầu */
+    font-size: 16px; /* Tăng kích thước font */
+    padding: 15px; /* Tăng padding để dễ đọc hơn */
+    padding-bottom: 100px;
+    margin-bottom: 20px; /* Thêm khoảng cách dưới textarea */
+    border: 2px solid #ccc; /* Thêm viền rõ ràng hơn */
+    border-radius: 8px; /* Bo góc nhẹ */
+    resize: vertical; /* Cho phép người dùng điều chỉnh chiều cao */
+}
+
+#controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+#controls button {
+    padding: 12px 20px;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#controls button:hover {
+    background-color: var(--accent-color);
+}
+
+/* Wheel Section */
+.wheel-section {
+    width: 100%;
+    max-width: 80vh; /* Increased from 500px */
+    margin: 0 auto;
+}
+
+#wheelCanvas {
+    border: 5px solid var(--primary-color);
+    border-radius: 50%;
+    margin-bottom: 20px;
+    width: 70%;
+    height: auto;
+    aspect-ratio: 1/1;
+}
+
+#result {
+    font-size: 1.5em;
+    font-weight: 600;
+    color: var(--primary-color);
+    height: 50px; /* Điều chỉnh chiều cao này theo nhu cầu của bạn */
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+#result.show {
+    opacity: 1;
+}
+
+/* Footer */
+footer {
+    margin-top: 20px;
+    font-size: 0.9em;
+    color: #777;
+}
+
+/* Responsive Design */
+@media (max-height: 900px) {
+    /* Adjust canvas size */
+    #wheelCanvas {
+        width: 400px;
+        height: 400px;
+    }
+
+    /* Adjust heading size */
+    h1 {
+        font-size: 2.5em;
+    }
+
+    /* Adjust input textarea height */
+    #namesInput {
+        height: 70px;
+    }
+
+    /* Adjust button sizes */
+    #controls button {
+        padding: 10px 15px;
+        font-size: 0.9em;
+    }
+
+    /* Reduce margins and paddings */
+    .input-section {
+        padding: 15px;
+    }
+
+    footer {
+        margin-top: 15px;
+    }
+}
+
+@media (max-height: 768px) {
+    /* Further reduce canvas size */
+    #wheelCanvas {
+        width: 350px;
+        height: 350px;
+    }
+
+    /* Adjust heading size */
+    h1 {
+        font-size: 2em;
+    }
+
+    #namesInput {
+        height: 60px;
+    }
+
+    #controls button {
+        padding: 8px 12px;
+        font-size: 0.8em;
+    }
+}
+
+@media (max-width: 600px) {
+    /* Adjust layout for narrow screens */
+    #controls {
+        flex-direction: column;
+    }
+
+    #controls button {
+        width: 100%;
+    }
+}
+
+#fireworks-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1000;
+    overflow: hidden;
+  }
+  
+  .firework {
+    position: absolute;
+    pointer-events: none;
+  }
+  
+  .particle {
+    position: absolute;
+    width: 8px;  /* Tăng từ 5px */
+    height: 8px; /* Tăng từ 5px */
+    border-radius: 50%;
+    animation: explode 1.5s ease-out forwards; /* Tăng thời gian animation */
+  }
+  
+  @keyframes explode {
+    0% {
+      transform: translate(0, 0) scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(var(--translateX), var(--translateY)) scale(0.2); /* Tăng scale cuối */
+      opacity: 0;
+    }
+  }
+/* Fireworks Canvas */
+#fireworksCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* Wheel Section */
+.wheel-section {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+#wheelCanvas {
+    position: relative;
+    z-index: 1;
+}
+
+#result {
+    position: relative;
+    z-index: 20;
+}
+.input-hint {
+    display: block;
+    margin-bottom: 20px;
+    font-size: 0.8em;
+    color: #666;
+    font-style: italic;
+  }
